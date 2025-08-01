@@ -10,7 +10,7 @@ router = Router()
 
 @router.message(IsNewUser())
 async def f(message: Message):
-    await User.get_or_create(message.from_user.id, defaults={"name": message.from_user.full_name, "status": "simple"})
+    await User.get_or_create(telegram_id=message.from_user.id, defaults={"name": message.from_user.full_name, "status": "simple"})
     await message.answer("Assalomu alaykum, xush kelibsiz!", reply_markup=main_menu)
 
 @router.message(Command("start"), IsNotAdmin())

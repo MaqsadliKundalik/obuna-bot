@@ -13,4 +13,4 @@ class IsNotAdmin(Filter):
     
 class IsNewUser(Filter):
     async def __call__(self, message: Message):
-        return not await User.get_or_none(message.from_user.id)
+        return not await User.get_or_none(telegram_id=message.from_user.id)
