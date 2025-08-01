@@ -1,7 +1,7 @@
 from aiogram import Bot
 from models import User
 from asyncio import sleep
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from config import SUBSCRIBE_DAY, GROUP_ID
 
 async def check_subscribes(bot: Bot):
@@ -13,13 +13,14 @@ async def check_subscribes(bot: Bot):
             print(f"Error getting chat {GROUP_ID}: {e}")
             await sleep(30)
             continue
-        now = datetime.now()
+        now = datetime.now(timezone.utc)
         for user in users:
             days_subscribed = (now - user.updated_at).days
 
             if days_subscribed > SUBSCRIBE_DAY:
                 user.status = "finished"
                 await user.save()
+                
                 member = await chat.get_member(user.telegram_id)
                 if member.status == "member":
                     try:
