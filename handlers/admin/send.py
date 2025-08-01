@@ -21,7 +21,7 @@ async def handle_message(message: Message, state: FSMContext):
     e = 0
     for user in users:
         try:
-            await message.copy_to(user.id)
+            await message.copy_to(user.telegram_id)
             a += 1
             await sleep(0.5)
         except:
