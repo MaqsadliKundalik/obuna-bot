@@ -22,7 +22,8 @@ Guruhga qo'shilish uchun quyidagi karta raqamga {PRICE} UZS to'lov qiling va che
 @router.message(SubscribeUserState.send_check)
 async def f(message: Message, state: FSMContext):
     for admin in ADMINS:
-        await message.copy_to(admin, reply_markup=check_menu(message.from_user.id))
+        await message.copy_to(admin)
+        await message.bot.send_message(admin, f"Yangi obuna so'rovi:\n\nID: {message.from_user.id}\nIsm: {message.from_user.full_name}", reply_markup=check_menu(message.from_user.id))
     await message.answer("Iltimos kuting. Tez orada adminlarimiz sizni tasdiqlashadi.", reply_markup=main_menu)
     await state.clear()
 
