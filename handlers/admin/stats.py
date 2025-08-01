@@ -5,7 +5,7 @@ from filters import IsAdmin
 
 router = Router()
 
-@router.message(F.text == "Statistics", IsAdmin())
+@router.message(F.text == "Statistika", IsAdmin())
 async def show_statistics(message: Message):
     total_users = await User.all().count()
     subscribed_users = await User.filter(status="subscribed").count()
